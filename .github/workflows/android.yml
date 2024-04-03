@@ -31,11 +31,12 @@ jobs:
       id: go
     - name: NDKVER
       run:
-        NDK="$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -F2)"
+        NDK="$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -f2)"
     - name: Install NDK
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: $NDK
+        link-to-sdk: true
         
     - name: Build app
       run: ./gradlew assembleOssRelease
