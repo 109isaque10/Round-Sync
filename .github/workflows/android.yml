@@ -29,11 +29,14 @@ jobs:
       with:
         go-version: 1.19.8
       id: go
+    - name: NDKVER
+      run:
+        NDK="$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -F2)"
     - name: Install NDK
-      run: |
-        NDK_VERSION="$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -f2)"
-        yes | sudo ${ANDROID_HOME}/tools/bin/sdkmanager" --licenses
-        sudo "${ANDROID_HOME}/tools/bin/sdkmanager" "ndk;${NDK_VERSION}"
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: $NDK
+        
     - name: Build app
       run: ./gradlew assembleOssRelease
     - name: Upload APK (arm)
