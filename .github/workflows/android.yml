@@ -32,7 +32,7 @@ jobs:
     - name: Install NDK
       uses: nttld/setup-ndk@v1
       with:
-        ndk-version: 25.2.9519653
+        ndk-version: r25c
         link-to-sdk: true
         
     - name: Build app
