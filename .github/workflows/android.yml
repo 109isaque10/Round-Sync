@@ -32,8 +32,8 @@ jobs:
     - name: Install NDK
       run: |
         NDK_VERSION="$(grep -E "^de\.felixnuesse\.extract\.ndkVersion=" gradle.properties | cut -d'=' -f2)"
-        yes | echo "@@13e14@@" | sudo - S ${ANDROID_HOME}/tools/bin/sdkmanager" --licenses
-        echo "@@13e14@@" | sudo - S "${ANDROID_HOME}/tools/bin/sdkmanager" "ndk;${NDK_VERSION}"
+        yes | sudo ${ANDROID_HOME}/tools/bin/sdkmanager" --licenses
+        sudo "${ANDROID_HOME}/tools/bin/sdkmanager" "ndk;${NDK_VERSION}"
     - name: Build app
       run: ./gradlew assembleOssRelease
     - name: Upload APK (arm)
